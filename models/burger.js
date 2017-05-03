@@ -1,26 +1,18 @@
-//Import the ORM to create function that will INTERACT with the database
-var orm = require("../config/orm.js");
+//created with:$ sequelize model:create --name Burgers --attributes "name:string, devoured:boolean"
 
-var burger = {
-	all: function(callback){
-		orm.selectAll("burgers", function(res){
-			callback(res);
-		});
-	},
+'use strict';
 
-	//variables cols and vals are arrays
-	create: function( vals, callback) {
-		orm.insertOne("burgers", "burger_name", vals, function(res){
-			callback(res);
-		});
-	},
-	// udpdates burgers to display i think ?????
-	update: function( condition, callback) {
-		orm.updateOne("burgers", condition, function(res){
-			callback(res);
-		})
-	}
+module.exports = function(sequelize, DataTypes) {
+	var Burgers = sequelize.define("Burgers", {
+		name: {type: DataTypes.STRING, allNull: false},
+		devoured: {type: DataTypes.BOOLEAN, allNull: false, defaultValue: true}
+	}, {
+		classMethods: {
+			associate: function(models){
+
+			}
+		}
+});
+return Burgers;
 };
 
-// export the database functions for the controller (burger_controller.js)
-module.exports = burger;

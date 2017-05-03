@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "burger_sequelize"
+  database: "burger_s"
 
 });
 
