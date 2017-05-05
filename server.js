@@ -28,7 +28,7 @@ var routes = require("./controllers/burger_controller.js");
 
 // route to home page
 app.use("/", routes);
-app.use("/findResturant", restaurant)
+
 // app.use("/update", routes);
 // app.use("/create", routes);
 
