@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
-
+var db = require('./models');
 var port = process.env.port || 3000;
 
 var app = express();
@@ -9,7 +9,7 @@ var app = express();
 // SERVER STATIC CONTENT FOT THE APP FROM THE "PUBLIC " 
 //DIRECTORY IN THE APPLICATION DIRECTORY
 
-app.use(express.static(process.cwd() + "/public"));
+app.use(express.static(__dirname + "/public"));
 
 app.use(bodyParser.urlencoded({ extended: false}));
 
@@ -28,11 +28,18 @@ var routes = require("./controllers/burger_controller.js");
 
 // route to home page
 app.use("/", routes);
+app.use("/findResturant", restaurant)
+// app.use("/update", routes);
+// app.use("/create", routes);
 
 // console.log if listening on port
-app.listen(port, function() {
-  console.log("Listening BOSS on PORT " + port);
+db.sequelize.sync().then(function(){
+	app.listen(port, function() {
+  		console.log("Listening BOSS on PORT " + port);
+	});	
 });
+
+
 
 
 

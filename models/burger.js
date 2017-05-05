@@ -3,9 +3,22 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-	var Burgers = sequelize.define("Burgers", {
-		name: {type: DataTypes.STRING, allNull: false},
-		devoured: {type: DataTypes.BOOLEAN, allNull: false, defaultValue: true}
+	var Burger = sequelize.define("Burger", {
+		burger_name: 
+		{
+      type: DataTypes.STRING, 
+			allowNull: false, 
+			validate:{
+				len: [1,100]
+			}
+		},
+		devoured: 
+		{
+			type: DataTypes.BOOLEAN, 
+			allowNull: false, 
+			defaultValue: false 
+		},
+
 	}, {
 		classMethods: {
 			associate: function(models){
@@ -13,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		}
 });
-return Burgers;
+return Burger;
 };
+
 

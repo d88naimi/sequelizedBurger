@@ -12,8 +12,8 @@
           <td>{{this.id}}</td>
           <td> {{this.burger_name}}</td>
            <td>
-              <form action="/{{this.id}}?_method=PUT" method="POST">
-                <input type="hidden" name="burgerName" value="true">
+              <form action="/update/{{this.id}}?_method=PUT" method="POST">
+                <input type="hidden" name="devoured" value="true">
                 <button class="btn btn-success" type="submit">Devour it!</button>
               </form>
           </td>
@@ -49,10 +49,10 @@
 <div class="jumbotron col-xl-12 col-lg-12 col-md-12 -colsm-12 col-xs-12" id="addBox">
     <h2>Add a Burger</h2>
 
-    <form action="/" method="POST">
-
+    <form action="/create" method="POST">
+P
         <label for="burgerBox">Burger Name:</label>
-        <input type="text" id="burgerBox" name="name" >
+        <input type="text" id="burgerBox" name="burger_name" >
 
       <button class="btn btn-danger" type="submit">Add</button>
 

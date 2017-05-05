@@ -1,48 +1,36 @@
-// this is creatinf the mysql database page and sending the router
-
-var express = require("express");
-
-var bodyParser = require("body-parser");
+var express = require('express');
 var router = express.Router();
+var models = require('../models');
 
-// var methodOverride = require("method-override");
 
-router.get('/', function(req,res){
-  res.redirect('/burgers')
-});
-// READ
-// GRAB ALL FROM EVENTS, THEN SEND DATA TO BROWSER
-router.get('/burgers', function(req,res){
-  Burgers.findAll()
-  then(function(burger_s){
-    return res.render('index', {burger_s})
+
+router.get('/', function (req, res) {
+  models.Burger.findAll({}).then(function (data) {
+    var hbsObject = { burgers: data };
+    res.render('index', hbsObject);
   });
 });
 
-// create the burger name and devoured status, then redirect
-router.post('/burgers/create', function(req,res){
-  Burgers.create({
-    name: req.body.burger_name,
-    devoured: req.body.devoured
-  })
-  .then (function(){
-    res.redirects('burgers')
+router.post('/create', function (req, res) {
+  models.Burger.create({burger_name: req.body.burger_name, devoured: false})
+  .then(function() {
+    res.redirect('/');
   });
 });
 
-// update devoured where id= req.params.id tje redirect to burgers
-router.put('/burgers/update/:id', function(req,res){
-  Burgers.update(
-  {
-    devoured: req.body.devoured
-  }, {
-  where: {id:req.params.id}
-  })
-  .then(function(){
-    res.redirect('/burgers');
+router.put('/update/:id', function (req, res) {
+
+  models.Burger.update({ devoured: req.body.devoured }, {where: {id:req.params.id}})
+  .then(function () {
+    res.redirect('/');
   });
 });
 
+router.delete('/delete/:id', function (req, res) {
 
-// export routes for server.js to USE 
+  models.Burger.destroy({where: {id:req.params.id}}).then(function() {
+    res.redirect('/');
+  });
+});
+
 module.exports = router;
